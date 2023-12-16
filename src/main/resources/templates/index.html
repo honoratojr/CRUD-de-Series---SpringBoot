@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TADS - Atividade DSW</title>
+    <style>
+        .titulo {color: green;}
+    </style>
+</head>
+<body>
+    <div>
+        <h1 class="titulo">TADS - Atividade DSW - Séries</h1>
+        <ul id="resultado">
+        </ul>
+    </div>
+    <script>
+        function montarHtml(dados) {
+            return '<li>' +
+                '<h3>' + dados.titulo + '</h3>' + 
+                '<p>Gênero: ' + dados.genero + '</p>' + 
+                '<p>Ano de lançamento: ' + dados.anoLancamento + '</p>' + 
+                '</li>'
+        }
+        function getJson(url) {
+            return new Promise((resolve, reject) => {
+                const xhr = new XMLHttpRequest();
+                xhr.open('GET', url, true);
+                xhr.onload = function () {
+                    if (xhr.status === 200) {
+                        resolve(JSON.parse(xhr.responseText));
+                    } else {
+                        reject({
+                            codigo: xhr.status,
+                            mensagem: 'Erro ao carregar dados'
+                        });
+                    }
+                };
+                xhr.send();
+            });
+        }
+
+        async function listar() {
+            try {
+                const dados = await getJson('http://localhost:8080/series');
+                for (let i = 0; i < dados.length; i++) {
+                    const dadosHtml = montarHtml(dados[i]);
+                    document.getElementById('resultado').insertAdjacentHTML('beforeend', dadosHtml);
+                }
+            } catch(err) {
+                alert('ERRO' + err.codigo + ' ' + err.mensagem);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            listar();
+        });
+
+    </script>
+    
+</body>
+</html>

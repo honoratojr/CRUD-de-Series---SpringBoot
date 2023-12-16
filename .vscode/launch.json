@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-SeriesApplication<series>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.senac.series.SeriesApplication",
+            "projectName": "series",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

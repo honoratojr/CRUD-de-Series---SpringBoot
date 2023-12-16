@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Cadastrar série</title>
+
+    <link rel="stylesheet" th:href="@{/bootstrap-5.1.3-dist/css/bootstrap.min.css}">
+    <script th:src="@{/jquery-3.6.0-dist/jquery-3.6.0.min.js}"></script>
+    <script th:src="@{/bootstrap-5.1.3-dist/js/bootstrap.min.js}"></script>
+
+<style>
+.mensagem {
+  color: red;
+}
+</style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="row">  	
+          <div class="col"> 
+
+            <h2>Cadastrar nova série</h2>
+            <form th:action="@{/series/salvar}" th:object="${series}" method="post" novalidate>
+                
+                <div class="mb-3">
+                    <label class="form-label">Título</label>
+                    <div class="col-sm-5">
+                    <input class="form-control" type="text" name="titulo" placeholder="Título" th:field="*{titulo}" >
+                        <p class="mensagem" th:if="${#fields.hasErrors('titulo')}" th:errors="*{titulo}"></p>                   
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Gênero</label>
+                    <div class="col-sm-5">
+                    <input class="form-control" type="text" name="genero" placeholder="Gênero" th:field="*{genero}" required>
+                        <p class="mensagem" th:if="${#fields.hasErrors('genero')}" th:errors="*{genero}"></p>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Ano de lançamento</label>
+                    <div class="col-sm-5">
+                    <input class="form-control" type="text" name="anoLancamento" placeholder="Ano de lançamento" th:field="*{anoLancamento}" required>
+                        <p class="mensagem" th:if="${#fields.hasErrors('anoLancamento')}" th:errors="*{anoLancamento}"></p>
+                    </div>
+                </div>
+
+                <a type="button" href="/series/lista" class="btn btn-outline-primary">Voltar</a>
+                <input  class="btn btn-primary" type="submit" value="Enviar"/>
+
+            </form>
+        
+    
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>
